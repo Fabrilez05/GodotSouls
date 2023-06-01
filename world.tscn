@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://wgd2u6othigf"]
+[gd_scene load_steps=19 format=3 uid="uid://wgd2u6othigf"]
 
 [ext_resource type="Script" path="res://Player.gd" id="1_r5in2"]
 [ext_resource type="ArrayMesh" uid="uid://dx0jnivwrl6y5" path="res://ImageToStl.com_espada.obj" id="2_xco8s"]
+[ext_resource type="Script" path="res://Enemy1.gd" id="3_s7j1u"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_k1mvt"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -27,7 +28,7 @@ step = 0.02
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CharacterBody3D/Neck/Camera3D/MeleeWeapon/WeaponModel:position")
+tracks/0/path = NodePath("../Player/Neck/Camera3D/MeleeWeapon/WeaponModel:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -39,7 +40,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CharacterBody3D/Neck/Camera3D/MeleeWeapon/WeaponModel:rotation")
+tracks/1/path = NodePath("../Player/Neck/Camera3D/MeleeWeapon/WeaponModel:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -54,7 +55,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CharacterBody3D/Neck/Camera3D/MeleeWeapon/WeaponModel:position")
+tracks/0/path = NodePath("../Player/Neck/Camera3D/MeleeWeapon/WeaponModel:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -66,7 +67,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CharacterBody3D/Neck/Camera3D/MeleeWeapon/WeaponModel:rotation")
+tracks/1/path = NodePath("../Player/Neck/Camera3D/MeleeWeapon/WeaponModel:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -83,7 +84,7 @@ step = 0.02
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CharacterBody3D/Neck/Camera3D/MeleeWeapon/WeaponModel:rotation")
+tracks/0/path = NodePath("../Player/Neck/Camera3D/MeleeWeapon/WeaponModel:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -108,6 +109,20 @@ points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607,
 [sub_resource type="BoxShape3D" id="BoxShape3D_2hfjs"]
 size = Vector3(0.25, 0.25, 0.6)
 
+[sub_resource type="NavigationMesh" id="NavigationMesh_iinu5"]
+vertices = PackedVector3Array(-4, 0.5, -4, -4, 0.5, 4, 4, 0.5, 4, 4, 0.5, -4)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+cell_size = 1.0
+agent_height = 1.0
+agent_radius = 0.4
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_m4r4a"]
+size = Vector2(10, 10)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_hbal3"]
+radius = 0.1
+height = 0.4
+
 [node name="World" type="Node"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -126,38 +141,61 @@ mesh = SubResource("PlaneMesh_moth5")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_evokt")
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+[node name="Player" type="CharacterBody3D" parent="."]
 script = ExtResource("1_r5in2")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterBody3D"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
 root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_pkyqw")
 }
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0.283334, 0)
 visible = false
 mesh = SubResource("CapsuleMesh_365wo")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0.283334, 0)
 shape = SubResource("ConvexPolygonShape3D_p22st")
 
-[node name="Neck" type="Node3D" parent="CharacterBody3D"]
+[node name="Neck" type="Node3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.428664, 0)
 
-[node name="Camera3D" type="Camera3D" parent="CharacterBody3D/Neck"]
+[node name="Camera3D" type="Camera3D" parent="Player/Neck"]
 
-[node name="hitbox" type="Area3D" parent="CharacterBody3D/Neck/Camera3D"]
+[node name="hitbox" type="Area3D" parent="Player/Neck/Camera3D"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D/Neck/Camera3D/hitbox"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/Neck/Camera3D/hitbox"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.300914)
 shape = SubResource("BoxShape3D_2hfjs")
 
-[node name="MeleeWeapon" type="Node3D" parent="CharacterBody3D/Neck/Camera3D"]
+[node name="MeleeWeapon" type="Node3D" parent="Player/Neck/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.144779)
 
-[node name="WeaponModel" type="MeshInstance3D" parent="CharacterBody3D/Neck/Camera3D/MeleeWeapon"]
-transform = Transform3D(0.305425, -0.516445, 6.15855e-09, 0, 7.15493e-09, 0.6, -0.516445, -0.305425, 3.64215e-09, 0.121, -0.151, 0.004)
+[node name="WeaponModel" type="MeshInstance3D" parent="Player/Neck/Camera3D/MeleeWeapon"]
+transform = Transform3D(0.305425, -0.516445, -2.25745e-08, 0, -2.62268e-08, 0.6, -0.516445, -0.305425, -1.33506e-08, 0.121, -0.151, 0.004)
 mesh = ExtResource("2_xco8s")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="Player"]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_iinu5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D"]
+mesh = SubResource("PlaneMesh_m4r4a")
+
+[node name="Enemy1" type="CharacterBody3D" parent="NavigationRegion3D"]
+script = ExtResource("3_s7j1u")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Enemy1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.715345, 0.225359, -1.56127)
+mesh = SubResource("CapsuleMesh_hbal3")
+
+[node name="Timer" type="Timer" parent="NavigationRegion3D/Enemy1"]
+wait_time = 2.0
+autostart = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Enemy1"]
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="NavigationRegion3D/Enemy1"]
