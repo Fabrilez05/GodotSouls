@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cc3v2v1rfk6lc"]
+[gd_scene load_steps=5 format=3 uid="uid://c80ar2ef626tf"]
 
 [ext_resource type="Script" path="res://menu.gd" id="1_y4tmj"]
 [ext_resource type="Texture2D" uid="uid://bim8uneknpiso" path="res://Souls.webp" id="2_kkaln"]
@@ -14,6 +14,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -18.0
+offset_right = 13.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_y4tmj")
@@ -21,10 +23,10 @@ script = ExtResource("1_y4tmj")
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+anchor_left = 0.14206
+anchor_top = 0.25
+anchor_right = 0.779828
+anchor_bottom = 0.879129
 offset_left = -578.5
 offset_top = -326.5
 offset_right = 578.5
@@ -32,22 +34,23 @@ offset_bottom = 326.5
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_kkaln")
-expand_mode = 1
+expand_mode = 3
 metadata/_edit_use_anchors_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.543
-anchor_right = 0.5
-anchor_bottom = 0.543
+anchor_left = 0.753219
+anchor_top = 0.729526
+anchor_right = 0.95682
+anchor_bottom = 0.833129
 offset_left = -24.5
 offset_top = -32.864
-offset_right = 24.5
+offset_right = 24.305
 offset_bottom = 33.136
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="StartButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -63,10 +66,10 @@ text = "Salir"
 [node name="TitleCard" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.502056
-anchor_top = 0.353901
-anchor_right = 0.502056
-anchor_bottom = 0.353901
+anchor_left = 0.855252
+anchor_top = 0.622114
+anchor_right = 0.873277
+anchor_bottom = 0.622114
 offset_left = -230.368
 offset_top = -59.328
 offset_right = 230.632
